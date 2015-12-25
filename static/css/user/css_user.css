@@ -1,0 +1,89 @@
+body {
+    background-color: #efefef;
+}
+
+.cover {
+    padding: 15px 15px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.left-content {
+    padding-right: 0;
+    padding-left: 15px;
+}
+
+.c-l-background {
+    background-color: transparent;
+    border: none;
+}
+
+.c-l-title {
+    display: block;
+    /*padding: 9.5px;*/
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    border-radius: 4px;
+}
+
+.content-right-post, .content-right-status {
+    background-color: #FFFFFF;
+    border: solid 1px #C1CCD8;
+    display: block;
+    padding: 9px;
+    font-size: 13px;
+    line-height: 1.42857;
+    word-break: break-all;
+    word-wrap: break-word;
+    /*border-radius: 4px;*/
+    margin-bottom: 10px;
+}
+
+/*---------------------------------Write status------------------------------------------*/
+
+.content-right-status > .title-status {
+    min-height: 25px;
+    border-bottom: 1px solid #C1CCD8
+}
+
+.content-right-status > .content-status {
+    position: relative;
+    min-height: 100px;
+}
+
+.content-right-status > .content-status > .avatar {
+    width: 75px;
+    height: 75px;
+    background-color: #1b6d85;
+    margin: 10px;
+}
+
+.content-right-status > .content-status > .text-status {
+    margin: 10px;
+    width: 85%
+}
+
+.write-status {
+    /*overflow:hidden;*/
+    resize: none;
+    border: 0;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 75px;
+}
+
+.content-right-status > .button-status {
+    min-height: 35px;
+    position: relative;
+    border-top: 1px solid #C1CCD8
+}
+
+.content-right-status > .button-status > .margin {
+    margin: 7px 20px 0 0;
+}
+
+/*--------------------------------- Post ------------------------------------------------*/
