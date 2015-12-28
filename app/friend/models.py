@@ -9,6 +9,8 @@ class Friend(models.Model):
     profile = models.ForeignKey(Profile, related_name='profile_friend')
     friend = models.ForeignKey(Profile, related_name='friend_friend')
     date = models.DateTimeField(default=timezone.now)
+    level = models.IntegerField(default=1)
+    date_level = models.DateTimeField(default=timezone.now)
 
 
 class Waiting(models.Model):

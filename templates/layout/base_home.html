@@ -71,116 +71,18 @@
 
             <!-- Content -->
             <div id="content">
-
-                <form id="get-form" class="pull-right">
-                    <fieldset>
-                        <div class="btn-group format-selection">
-                            <a class="btn btn-primary js-tooltip" href="{{ request.get_full_path }}"
-                               rel="nofollow" title="Make a GET request on the {{ name }} resource">GET</a>
-
-                            <button class="btn btn-primary dropdown-toggle js-tooltip" data-toggle="dropdown"
-                                    title="Specify a format for the GET request">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                {#                                {% for format in available_formats %}#}
-                                <li>
-                                    <a class="js-tooltip format-option"
-                                       rel="nofollow"
-                                       title="Make a GET request on the {{ name }} resource with the format set to `{{ format }}`">name</a>
-                                </li>
-                                <li>
-                                    <a class="js-tooltip format-option"
-                                       rel="nofollow"
-                                       title="Make a GET request on the {{ name }} resource with the format set to `{{ format }}`">name</a>
-                                </li>
-                                {#                                {% endfor %}#}
-                            </ul>
-                        </div>
-                    </fieldset>
-                </form>
-
-                {#                {% if options_form %}#}
-                {#                    <form class="button-form" action="{{ request.get_full_path }}" data-method="OPTIONS">#}
-                {#                        <button class="btn btn-primary js-tooltip"#}
-                {#                                title="Make an OPTIONS request on the {{ name }} resource">OPTIONS#}
-                {#                        </button>#}
-                {#                    </form>#}
-                {#                {% endif %}#}
-                {##}
-                {#                {% if delete_form %}#}
-                {#                    <form class="button-form" action="{{ request.get_full_path }}" data-method="DELETE">#}
-                {#                        <button class="btn btn-danger js-tooltip"#}
-                {#                                title="Make a DELETE request on the {{ name }} resource">DELETE#}
-                {#                        </button>#}
-                {#                    </form>#}
-                {#                {% endif %}#}
-                {##}
-                {#                {% if filter_form %}#}
-                {#                    <button style="float: right; margin-right: 10px" data-toggle="modal" data-target="#filtersModal"#}
-                {#                            class="btn btn-default">#}
-                {#                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>#}
-                {#                        {% trans "Filters" %}#}
-                {#                    </button>#}
-                {#                {% endif %}#}
-
                 <div class="content-main">
-                    <div class="page-header">
-                        <h1>{{ name }}</h1>
-                    </div>
-                    <div style="float:left">
-                        {% block description %}
-                            {{ description }}
-                        {% endblock %}
-                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 left-content c-l-background">
+                            {% block content-left %}
+                                {% include 'user/timeline/right_timeline.html' %}
+                            {% endblock %}
+                        </div>
+                        <div class="col-lg-9">
+                            {% block content-right %}
 
-                    {% if paginator %}
-                        <nav style="float: right">
-                            {#                            {% get_pagination_html paginator %}#}
-                        </nav>
-                    {% endif %}
-
-                    <div class="request-info" style="clear: both">
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-                        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-
-                    </div>
-
-                    <div class="response-info">
-                        {#              <pre class="prettyprint"><span#}
-                        {#                      class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>#}
-                        {#                  {% autoescape off %}#}
-                        {#                      {% for key, val in response_headers.items %}<b>{{ key }}:</b>#}
-                        {#                          <span class="lit">{{ val|break_long_headers|urlize_quoted_links }}</span>#}
-                        {#                      {% endfor %}#}
-                        {#                      </span>{{ content|urlize_quoted_links }}</pre>{% endautoescape %}#}
+                            {% endblock %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -191,20 +93,13 @@
     <!-- ./wrapper -->
 
     {% block script %}
-        <script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
-        <script src="{% static "js/csrf.js" %}"></script>
-        <script src="{% static "js/bootstrap.min.js" %}"></script>
-        {#        <script>#}
-        {#            $(document).ready(function () {#}
-        {#                $('form').ajaxForm();#}
-        {#            });#}
-        {#        </script>#}
+
     {% endblock %}
-
-    {% if filter_form %}
-        {{ filter_form }}
-    {% endif %}
-
+    <script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
+    <script src="{% static "js/csrf.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/funcution.js" %}"></script>
+    <script src="{% static "js/ajax/post.js" %}"></script>
     </body>
 {% endblock %}
 </html>

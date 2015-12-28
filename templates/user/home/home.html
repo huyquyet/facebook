@@ -1,0 +1,32 @@
+{% extends 'layout/base_home.html' %}
+
+{% block content-right %}
+    <div class="request-info pull-left " style="clear: both; width: 100%;">
+        <div class="prettyprint content-right-status" style="position: relative">
+            <div class="title-status"><b>Write status home</b></div>
+            <form action="#" method="POST" id="create_post_{{ user.pk }}">
+                <div class="content-status">
+                    <div class="pull-left avatar">
+                        avata
+                    </div>
+                    <div class="pull-left text-status">
+                        <textarea id="textarea-write-status_{{ user.pk }}" class="write-status"
+                                  placeholder="What's on your mind?"></textarea>
+                    </div>
+                </div>
+                <div class="button-status">
+                    <button type="button" class=" btn btn-default btn-sm pull-right margin" name="post_status"
+                            onsubmit="create_post_status({{ user.pk }}); return false;"> Post
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div id="view_post_{{ user.pk }}">
+            <div class="prettyprint content-right-post" id="post_{{ post.pk }}"><b>Post</b></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

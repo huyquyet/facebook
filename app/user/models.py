@@ -17,7 +17,7 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to=_path_to_avatar, max_length=255, default='avatar/default.jpg', blank=False)
     address = models.TextField(default='')
 
-    follows = models.ManyToManyField('self', through='Follow', through_fields=('follower', 'following'),
+    follows = models.ManyToManyField('self', through='Follow', through_fields=('following', 'follower'),
                                      related_name='following', symmetrical=False)
 
     friends = models.ManyToManyField('self', through='friend.Friend', through_fields=('profile', 'friend'),

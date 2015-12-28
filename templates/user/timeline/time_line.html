@@ -2,25 +2,29 @@
 
 {% block content-right %}
     <div class="request-info pull-left " style="clear: both; width: 100%;">
-        <div class="prettyprint content-right-status" style="position: relative">
-            <div class="title-status"><b>Write status </b></div>
-            <div class="content-status">
-                <div class="pull-left avatar">
-                    avata
-                </div>
-                <div class="pull-left text-status">
-                    <form action="" method="POST">
+        {% if  login %}
+            <div class="prettyprint content-right-status" style="position: relative">
+                <div class="title-status"><b>Write status </b></div>
+                <div class="content-status">
+                    <div class="pull-left avatar">
+                        avata
+                    </div>
+                    <div class="pull-left text-status">
+                        <form action="" method="POST">
                         <textarea id="textarea-write-status" class="write-status"
                                   placeholder="What's on your mind?"></textarea>
-                    </form>
+                        </form>
+                    </div>
+                </div>
+                <div class="button-status">
+                    <button type="button" class=" btn btn-default btn-sm pull-right margin" name="post_status">Post
+                    </button>
                 </div>
             </div>
-            <div class="button-status">
-                <button type="button" class=" btn btn-default btn-sm pull-right margin" name="post_status">Post
-                </button>
-            </div>
-        </div>
-        <div class="prettyprint content-right-post"><b>Post</b></div>
+            <div class="prettyprint content-right-post"><b>Post</b></div>
+        {% else %}
+            <div class="prettyprint content-right-post"><b>Post</b></div>
+        {% endif %}
     </div>
 {% endblock %}
 

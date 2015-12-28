@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'app.like',
     'app.post',
     'app.user',
+    'app.activity',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -119,3 +120,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 AVATAR_DIR = 'avatar'
+
+TIMELINE = 'timeline'
