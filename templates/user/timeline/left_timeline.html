@@ -1,0 +1,9 @@
+<div class="request-info" style="clear: both">
+    <div class="prettyprint ">
+        <div class="c-l-username"><b><a
+                href="{% url 'user:home' user.username %}"> {{ user.first_name }} {{ user.last_name }}</a></b></div>
+        <div class="c-l-edit-profile"><a href="{% url 'user:user_edit_profile' user.username %}">Edit</a></div>
+    </div>
+    <div class="prettyprint c-l-title"><b>FAVORITES</b></div>
+    <div class="prettyprint c-l-title"><b>GROUPS</b></div>
+</div>

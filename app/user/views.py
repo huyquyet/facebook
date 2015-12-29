@@ -1,6 +1,5 @@
 # Create your views here.
 from django.contrib import auth
-
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, UserCreationForm
@@ -9,15 +8,17 @@ from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView, FormView, UpdateView
+from django.views.generic import TemplateView, FormView, UpdateView, DetailView
+
+from app.post.models import Post
 
 from app.user.models import Profile
 
 
 class Index(TemplateView):
     template_name = 'user/timeline/time_line.html'
-    login = False
-
+    # login = False
+    #
     # def dispatch(self, request, *args, **kwargs):
     #     if self.request.user.is_authenticated():
     #         self.login = True
@@ -37,12 +38,22 @@ class Index(TemplateView):
 IndexView = Index.as_view()
 
 
-class Home(TemplateView):
+class Home(DetailView):
+    model = User
     template_name = 'user/home/home.html'
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        self.object = User.objects.get(username=self.kwargs['username'])
+        return self.object
+
+    def get_context_data(self, **kwargs):
+        ctx = super(Home, self).get_context_data(**kwargs)
+        ctx['posts'] = Post.objects.filter(profile__user=self.object)
+        return ctx
 
 
 HomeView = Home.as_view()
@@ -62,7 +73,7 @@ class UserLogin(FormView):
         if link:
             return link
         else:
-            return reverse('user:user_index')
+            return reverse('user:index')
 
 
 UserLoginView = UserLogin.as_view()
@@ -70,7 +81,7 @@ UserLoginView = UserLogin.as_view()
 
 def UserLogoutView(request):
     auth.logout(request)
-    return HttpResponseRedirect(reverse('user:user_index'))
+    return HttpResponseRedirect(reverse('user:index'))
 
 
 class UserRegister(FormView):
@@ -110,7 +121,7 @@ class UserEditProfile(UpdateView):
         return self.object
 
     def get_success_url(self):
-        return reverse('user:user_index')
+        return reverse('user:index')
 
 
 UserEditProfileView = UserEditProfile.as_view()

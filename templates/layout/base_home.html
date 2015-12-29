@@ -40,9 +40,7 @@
                     <ul class="nav navbar-nav pull-right">
                         {% block userlinks %}
                             {% if user.is_authenticated %}
-                                logout
-                            {% else %}
-                                login
+                                {% include 'layout/header.html' %}
                             {% endif %}
                         {% endblock %}
                     </ul>
@@ -51,38 +49,25 @@
         {% endblock %}
 
         <div class="container">
-            {% block breadcrumbs %}
-                <ul class="cover breadcrumb ">
+            <!-- Content -->
+            <div class="content-main">
+                <ul class="breadcrumb">
                     {#                    <img src="../../../static/media/base_user_cover.jpg"  width="100%"#}
                     {#                         height="236">#}
-
+                    <li>
+                        Cover
+                    </li>
                 </ul>
-            {% endblock %}
-            <ul class="breadcrumb">
-                {#                    <img src="../../../static/media/base_user_cover.jpg"  width="100%"#}
-                {#                         height="236">#}
-                <li>
-                    Cover
-                </li>
-                <div>
-                    coder
-                </div>
-            </ul>
+                <div class="row">
+                    <div class="col-lg-3 left-content c-l-background">
+                        {% block content-left %}
+                            {% include 'user/timeline/left_timeline.html' %}
+                        {% endblock %}
+                    </div>
+                    <div class="col-lg-9">
+                        {% block content-right %}
 
-            <!-- Content -->
-            <div id="content">
-                <div class="content-main">
-                    <div class="row">
-                        <div class="col-lg-3 left-content c-l-background">
-                            {% block content-left %}
-                                {% include 'user/timeline/right_timeline.html' %}
-                            {% endblock %}
-                        </div>
-                        <div class="col-lg-9">
-                            {% block content-right %}
-
-                            {% endblock %}
-                        </div>
+                        {% endblock %}
                     </div>
                 </div>
             </div>

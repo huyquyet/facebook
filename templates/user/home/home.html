@@ -10,19 +10,61 @@
                         avata
                     </div>
                     <div class="pull-left text-status">
-                        <textarea id="textarea-write-status_{{ user.pk }}" class="write-status"
+                        <textarea id="write_status_home_{{ user.pk }}" class="write-status"
                                   placeholder="What's on your mind?"></textarea>
                     </div>
                 </div>
                 <div class="button-status">
                     <button type="button" class=" btn btn-default btn-sm pull-right margin" name="post_status"
-                            onsubmit="create_post_status({{ user.pk }}); return false;"> Post
+                            onclick="create_post_status({{ user.pk }}); return false;"> Post
                     </button>
                 </div>
             </form>
         </div>
-        <div id="view_post_{{ user.pk }}">
-            <div class="prettyprint content-right-post" id="post_{{ post.pk }}"><b>Post</b></div>
+        <div class="content-right-posts">
+            {% for post in posts %}
+                <div id="view_post_{{ post.pk }}">
+                    <div class="prettyprint content-right-post" id="post_{{ post.pk }}">
+                        <div class="post-information">
+                            <div class="post-avatar-name-date">
+                                <div class="post-user-avatar"><img
+                                        src="{{ post.profile.avatar.url|default_if_none:'None' }}"
+                                        alt="avatar">
+                                </div>
+                                <div class="post-name-date">
+                                    <div class="post-user-full-name">
+                                        <a href="{% url 'user:home' user.username %}">
+                                            {{ post.profile.user.first_name }} {{ post.profile.user.last_name }}
+                                        </a>
+                                    </div>
+                                    <div class="post-date-time">
+                                        <a href="#">{{ post.date | date:'D d-m-Y' }} at {{ post.date | date:'H:m' }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                {{ post.title }}
+                            </div>
+                            <div class="post-like-comment">
+                                <button type="button" class="btn btn-link btn-xs text"
+                                        onclick="like_post({{ post.pk }})">
+                                    Like
+                                </button>
+                                -
+                                <button type="button" class="btn btn-link btn-xs text" onclick=""> Comment</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="prettyprint content-right-post-comments" id="post_comment_{{ post.pk }}">
+                        <div class="post-total-like">
+                            <a href="#"> 100 like this</a>
+                        </div>
+                        <div class="content-right-post-comment">
+                            comment
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

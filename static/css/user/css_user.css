@@ -8,6 +8,10 @@ body {
     position: relative;
 }
 
+.content-main {
+    margin-top: 60px;
+}
+
 .left-content {
     padding-right: 0;
     padding-left: 15px;
@@ -16,6 +20,14 @@ body {
 .c-l-background {
     background-color: transparent;
     border: none;
+}
+
+.c-l-username a:hover {
+    text-decoration: none;
+}
+
+.c-l-edit-profile a:hover {
+    text-decoration: none;
 }
 
 .c-l-title {
@@ -30,9 +42,9 @@ body {
     border-radius: 4px;
 }
 
-.content-right-post, .content-right-status {
+.content-right-post, .content-right-status, .content-right-post-comments {
     background-color: #FFFFFF;
-    border: solid 1px #C1CCD8;
+    border: solid 1px rgba(169, 183, 198, 0.29);
     display: block;
     padding: 9px;
     font-size: 13px;
@@ -87,6 +99,100 @@ body {
 }
 
 /*--------------------------------- Post ------------------------------------------------*/
+.content-right-posts {
+    padding-bottom: 0;
+}
+
+.content-right-post {
+    float: left;
+    width: 100%;
+    min-height: 50px;
+}
+
+.content-right-post .post-information {
+    min-height: 50px;
+    float: left;
+    width: 100%;
+}
+
+.content-right-post .post-information .post-avatar-name-date {
+    float: left;
+    width: 100%;
+}
+
+.content-right-post .post-information .post-avatar-name-date .post-user-avatar {
+    height: 45px;
+    width: 45px;
+    background-color: #00c6ff;
+    float: left;
+}
+
+.content-right-post .post-information .post-avatar-name-date .post-name-date {
+    margin-left: 5px;
+    float: left;
+}
+
+.content-right-post .post-information .post-avatar-name-date .post-name-date .post-user-full-name {
+    color: #3b5998;
+    font-size: 14px;
+    font-weight: bold
+}
+
+.content-right-post .post-information .post-avatar-name-date .post-name-date .post-user-full-name a {
+    color: #3b5998;
+    text-decoration: none;
+}
+
+.content-right-post .post-information .post-avatar-name-date .post-name-date .post-user-full-name a:hover {
+    color: #3b5998;
+    text-decoration: underline;
+}
+
+.content-right-post .post-information .post-avatar-name-date .post-name-date .post-date-time {
+    color: #3b5998;
+    font-size: 12px;
+}
+
+.content-right-post .post-information .post-content {
+    float: left;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    color: black;
+    font-size: 13px;
+}
+
+.content-right-post .post-information .post-like-comment {
+    float: left;
+    border-top: 1px solid #DDE8FC;
+    color: black;
+    font-size: 13px;
+    width: 100%;
+
+}
+
+.content-right-post .post-information .post-like-comment .text {
+    font-size: 13px;
+}
+
+/*--------------------------------- Comment ------------------------------------------------*/
+.content-right-post-comments {
+    margin-top: -11px;
+    float: left;
+    width: 100%;
+    background-color: #F6F7F8;
+}
+
+.content-right-post-comment {
+    float: left;
+    width: 100%;
+    min-height: 50px;
+}
+
+.post-comment {
+    float: left;
+    width: 100%;
+
+}
 
 /*--------------------------------- Login ------------------------------------------------*/
 .post {
@@ -102,9 +208,9 @@ body {
     margin: 10px auto;
     padding: 5px;
     border-radius: 5px;
-    background: -moz-linear-gradient(center top, #00c6ff, #018eb6);
-    background: -webkit-gradient(linear, left top, left bottom, from(#00c6ff), to(#018eb6));
-    background: -o-linear-gradient(top, #00c6ff, #018eb6);
+    /*background: -moz-linear-gradient(center top, #00c6ff, #018eb6);*/
+    /*background: -webkit-gradient(linear, left top, left bottom, from(#00c6ff), to(#018eb6));*/
+    /*background: -o-linear-gradient(top, #00c6ff, #018eb6);*/
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#00c6ff', EndColorStr='#018eb6');
     text-align: center;
     font-size: 14px;
@@ -115,6 +221,10 @@ body {
 .btn-sign a {
     color: #fff;
     text-shadow: 0 1px 2px #161616;
+}
+
+.btn-sign a:hover {
+    text-decoration: none;
 }
 
 #mask {
@@ -199,7 +309,7 @@ form.signin input::-webkit-input-placeholder {
 }
 
 .button {
-    background: -moz-linear-gradient(center top, #f3f3f3, #dddddd);
+    /*background: -moz-linear-gradient(center top, #f3f3f3, #dddddd);*/
     background: -webkit-gradient(linear, left top, left bottom, from(#f3f3f3), to(#dddddd));
     background: -o-linear-gradient(top, #f3f3f3, #dddddd);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f3f3f3', EndColorStr='#dddddd');

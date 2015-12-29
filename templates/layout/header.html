@@ -1,0 +1,26 @@
+<div class="post">
+    <div class="btn-sign">
+        <div style="float: left">
+            <a href="{%  url 'user:home' user.username %}">{{ user.last_name }}</a>&nbsp;|
+            &nbsp;
+        </div>
+        <div style="float: left">
+            <a href="{% url 'user:index' %}" class="login-window">HOME</a> &nbsp;
+        </div>
+
+        <div class="dropdown" style="float: left">
+            <button class="btn btn-link btn-xs dropdown-toggle" data-toggle="dropdown">
+                <span class="caret "></span>
+            </button>
+            <ul class="dropdown-menu pull-right" style="min-width: 100px">
+                <li>
+                    <a href="{% url 'user:user_logout' %}"> Logout</a>
+                </li>
+                <li>
+                    <a href="{% url 'user:user_edit_profile' user.username %}">
+                        Setting</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
