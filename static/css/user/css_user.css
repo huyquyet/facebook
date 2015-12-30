@@ -121,8 +121,8 @@ body {
 }
 
 .content-right-post .post-information .post-avatar-name-date .post-user-avatar {
-    height: 45px;
-    width: 45px;
+    height: 50px;
+    width: 50px;
     background-color: #00c6ff;
     float: left;
 }
@@ -182,16 +182,39 @@ body {
     background-color: #F6F7F8;
 }
 
+.content-right-post-comments .post-total-like {
+    margin-bottom: 5px;
+}
+
 .content-right-post-comment {
     float: left;
     width: 100%;
     min-height: 50px;
 }
 
-.post-comment {
-    float: left;
-    width: 100%;
+/*.post-comment {*/
+/*float: left;*/
+/*width: 100%;*/
 
+/*}*/
+
+.content-right-post-comment .create-comment {
+    width: 100%;
+    min-height: 40px;
+}
+
+.content-right-post-comment .create-comment .create-comment-avatar {
+    height: 40px;
+    width: 40px;
+    background-color: #00c6ff;
+    float: left;
+}
+
+.content-right-post-comment .create-comment .create-comment-content {
+    float: left;
+    width: 90%;
+    min-height: 40px;
+    margin-left: 5px;
 }
 
 /*--------------------------------- Login ------------------------------------------------*/

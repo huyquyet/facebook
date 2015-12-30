@@ -1,5 +1,5 @@
 {% extends 'layout/base_home.html' %}
-
+{#{% load comment_tags %}#}
 {% block content-right %}
     <div class="request-info pull-left " style="clear: both; width: 100%;">
         <div class="prettyprint content-right-status" style="position: relative">
@@ -21,7 +21,7 @@
                 </div>
             </form>
         </div>
-        <div class="content-right-posts">
+        <div class="content-right-posts" ng-controller="LoadPostHomeController">
             {% for post in posts %}
                 <div id="view_post_{{ post.pk }}">
                     <div class="prettyprint content-right-post" id="post_{{ post.pk }}">
@@ -46,21 +46,51 @@
                                 {{ post.title }}
                             </div>
                             <div class="post-like-comment">
-                                <button type="button" class="btn btn-link btn-xs text"
-                                        onclick="like_post({{ post.pk }})">
-                                    Like
+                                <div id="post-like-{{ post.pk }}" style="float: left">
+                                    {% if user in post.users_like %}
+                                        <button type="button" class="btn btn-link btn-xs text"
+                                                onclick="unlike_post({{ post.pk }})">Unlike
+                                        </button>
+                                    {% else %}
+                                        <button type="button" class="btn btn-link btn-xs text"
+                                                onclick="like_post({{ post.pk }})"> Like
+                                        </button>
+                                    {% endif %}
+                                </div>
+                                <button type="button" class="btn btn-link btn-xs text" onclick="" style="float: left">
+                                    Comment
                                 </button>
-                                -
-                                <button type="button" class="btn btn-link btn-xs text" onclick=""> Comment</button>
                             </div>
                         </div>
                     </div>
-                    <div class="prettyprint content-right-post-comments" id="post_comment_{{ post.pk }}">
-                        <div class="post-total-like">
-                            <a href="#"> 100 like this</a>
+                    <div class="prettyprint content-right-post-comments">
+                        <div class="post-total-like" id="number-like-post-{{ post.pk }}">
+                            <a href="#" onclick=""> {{ post.total_like }} </a> like this
                         </div>
-                        <div class="content-right-post-comment">
-                            comment
+                        <div class="post-comments" id="post_comment_{{ post.pk }}">
+                            <div class="content-right-post-comment">
+                                {#                            {% return_comment_of_post post.pk 5 as comments %}#}
+                                {#                            {% for comment in comments %}#}
+                                {##}
+                                {#                            {% endfor %}#}
+                                <div class="create-comment">
+                                    <div class="create-comment-avatar">
+                                        <img src="{{ user.profile.avatar.url|default_if_none:'None' }}" alt="avatar"
+                                             width="40" height="40">
+                                    </div>
+                                    <div class="create-comment-content">
+                                        <form action="" method="post"
+                                              onsubmit="create_post_comment({{ post.pk }}); return false;">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{ post.pk }}"
+                                                   id="create-comment-post-{{ post.pk }}">
+                                            <input type="text" class="form-control"
+                                                   id="create-comment-post-{{ post.pk }}-content"
+                                                   placeholder="new comment">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

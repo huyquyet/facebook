@@ -10,5 +10,5 @@ from app.user.models import Profile
 class Comment(models.Model):
     profile = models.ForeignKey(Profile, related_name='profile_comment')
     post = models.ForeignKey(Post, related_name='post_comment')
-    title = models.TextField()
+    title = models.TextField(default='')
     date = models.DateTimeField(default=timezone.now)

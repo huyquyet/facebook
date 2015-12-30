@@ -26,7 +26,7 @@
 {% block body %}
     <body class="{% block bodyclass %}{% endblock %}">
 
-    <div class="container">
+    <div class="container" ng-app="facebook-home">
         {% block navbar %}
             <div class=" nav navbar navbar-fixed-top navbar-static-top  {% block bootstrap_navbar_variant %}navbar-inverse{% endblock %}">
                 <div class="container ">
@@ -80,10 +80,12 @@
     {% block script %}
 
     {% endblock %}
-    <script src="{% static "js/jquery-1.11.3.min.js" %}"></script>
-    <script src="{% static "js/csrf.js" %}"></script>
-    <script src="{% static "js/bootstrap.min.js" %}"></script>
-    <script src="{% static "js/funcution.js" %}"></script>
+    <script src="{% static "js/system/jquery-1.11.3.min.js" %}"></script>
+    <script src="{% static 'js/system/angular.js' %}"></script>
+    <script src="{% static "js/system/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/user/csrf.js" %}"></script>
+    <script src="{% static "js/user/funcution.js" %}"></script>
+    <script src="{% static "js/user/angular-home.js" %}"></script>
     <script src="{% static "js/ajax/post.js" %}"></script>
     </body>
 {% endblock %}

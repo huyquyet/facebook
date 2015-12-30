@@ -17,6 +17,10 @@ class Post(models.Model):
     title = models.TextField()
     date = models.DateTimeField(default=timezone.now)
 
+    def get_total_like(self):
+        # return LikePost.objects.filter(post=self).count()
+        return self.post_likepost.all().count()
+
 
 class PostImage(Post):
     image = models.ImageField(upload_to=_path_to_timeline, max_length=255)

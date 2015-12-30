@@ -2,7 +2,7 @@
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 
-from app.activity.models import Activity
+from app.activity.function import create_activity
 from app.post.models import Post
 from app.user.models import Profile
 
@@ -16,12 +16,7 @@ def create_post_home(request):
         post.save()
 
         #  Create activity
-        try:
-            activity = Activity.objects.create(profile=Profile.objects.get(user=request.user), type_activity=2,
-                                               object_id=post.pk, data=post.title)
-            activity.save()
-        except Exception as e:
-            pass
+        create_activity(request.user, 'write_post', post.pk, post.title)
 
         html = render_to_string('post/post.html', {'post': post})
         res = {'html': html}

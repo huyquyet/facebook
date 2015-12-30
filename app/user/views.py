@@ -10,8 +10,8 @@ from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, FormView, UpdateView, DetailView
 
+from app.like.function import return_user_like_post
 from app.post.models import Post
-
 from app.user.models import Profile
 
 
@@ -52,7 +52,11 @@ class Home(DetailView):
 
     def get_context_data(self, **kwargs):
         ctx = super(Home, self).get_context_data(**kwargs)
-        ctx['posts'] = Post.objects.filter(profile__user=self.object)
+        ctx['posts'] = Post.objects.filter(profile__user=self.object)[:10]
+        # ctx['posts'].total_like =    Post.objects.filter(profile__user=self.object).
+        for post in ctx['posts']:
+            post.total_like = post.get_total_like()
+            post.users_like = return_user_like_post(post.pk)
         return ctx
 
 
