@@ -14,8 +14,10 @@ def _path_to_timeline(instance, filename):
 
 class Post(models.Model):
     profile = models.ForeignKey(Profile, related_name='post')
+    profile_create = models.ForeignKey(Profile, related_name='post_create')
     title = models.TextField()
     date = models.DateTimeField(default=timezone.now)
+    date_activity = models.DateTimeField(default=timezone.now)
 
     def get_total_like(self):
         # return LikePost.objects.filter(post=self).count()

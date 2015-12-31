@@ -1,17 +1,20 @@
 {% extends 'layout/base_home.html' %}
-{#{% load comment_tags %}#}
+{% load comment_tags %}
+{% load like_tags %}
 {% block content-right %}
     <div class="request-info pull-left " style="clear: both; width: 100%;">
         <div class="prettyprint content-right-status" style="position: relative">
             <div class="title-status"><b>Write status home</b></div>
-            <form action="#" method="POST" id="create_post_{{ user.pk }}">
+            <form action="#" method="POST" id="create_post_{{ user_home.pk }}">
                 <div class="content-status">
                     <div class="pull-left avatar">
                         avata
                     </div>
                     <div class="pull-left text-status">
-                        <textarea id="write_status_home_{{ user.pk }}" class="write-status"
+                        <textarea id="write_status_home_{{ user_home.pk }}" class="write-status"
                                   placeholder="What's on your mind?"></textarea>
+                        <input type="hidden" value="{{ user_home.pk }}" name="user_id" id="user_id">
+                        <input type="hidden" value="{{ id_new_post }}" name="id_new_post" id="id_new_post">
                     </div>
                 </div>
                 <div class="button-status">
@@ -22,79 +25,152 @@
             </form>
         </div>
         <div class="content-right-posts" ng-controller="LoadPostHomeController">
-            {% for post in posts %}
-                <div id="view_post_{{ post.pk }}">
-                    <div class="prettyprint content-right-post" id="post_{{ post.pk }}">
-                        <div class="post-information">
-                            <div class="post-avatar-name-date">
-                                <div class="post-user-avatar"><img
-                                        src="{{ post.profile.avatar.url|default_if_none:'None' }}"
-                                        alt="avatar">
+            <div id="view_posts">
+                {% for post in posts %}
+                    <div id="view_post_{{ post.pk }}">
+                        <div class="prettyprint content-right-post" id="post_{{ post.pk }}">
+                            <div class="post-information">
+                                <div class="post-avatar-name-date">
+                                    <div class="post-user-avatar">
+                                        <img src="{{ post.profile_create.avatar.url|default_if_none:'None' }}"
+                                             alt="avatar" class="img-rounded"
+                                             title="{{ post.profile_create.user.first_name }} {{ post.profile_create.user.last_name }}">
+                                    </div>
+                                    <div class="post-name-date">
+                                        <div class="post-user-full-name">
+                                            <a href="{% url 'user:home' user.username %}">
+                                                {{ post.profile_create.user.first_name }} {{ post.profile_create.user.last_name }}
+                                            </a>
+                                        </div>
+                                        <div class="post-date-time">
+                                            {#                                            <a href="#">{{ post.date | date:'D d-m-Y' }}#}
+                                            {#                                                at {{ post.date | date:'H:i' }}</a>#}
+                                            <a href="#"
+                                               title="{{ post.date | date:'D d-m-Y' }} at {{ post.date | date:'H:i' }}">{{ post.date | timesince }} </a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="post-name-date">
-                                    <div class="post-user-full-name">
-                                        <a href="{% url 'user:home' user.username %}">
-                                            {{ post.profile.user.first_name }} {{ post.profile.user.last_name }}
-                                        </a>
+                                <div class="post-content">
+                                    {{ post.title }}
+                                </div>
+                                <div class="post-like-comment">
+                                    <div id="post-like-{{ post.pk }}" style="float: left">
+                                        {% if user in post.users_like %}
+                                            <button type="button" class="btn btn-link btn-xs text"
+                                                    onclick="unlike_post({{ post.pk }})">Unlike
+                                            </button>
+                                        {% else %}
+                                            <button type="button" class="btn btn-link btn-xs text"
+                                                    onclick="like_post({{ post.pk }})"> Like
+                                            </button>
+                                        {% endif %}
                                     </div>
-                                    <div class="post-date-time">
-                                        <a href="#">{{ post.date | date:'D d-m-Y' }} at {{ post.date | date:'H:m' }}</a>
-                                    </div>
+                                    <button type="button" class="btn btn-link btn-xs text" onclick=""
+                                            style="float: left">
+                                        Comment
+                                    </button>
                                 </div>
                             </div>
-                            <div class="post-content">
-                                {{ post.title }}
+                        </div>
+                        <div class="prettyprint content-right-post-comments">
+                            <div class="post-total-like" id="number-like-post-{{ post.pk }}">
+                                <a href="#" onclick=""> {{ post.total_like }} </a> like this
                             </div>
-                            <div class="post-like-comment">
-                                <div id="post-like-{{ post.pk }}" style="float: left">
-                                    {% if user in post.users_like %}
-                                        <button type="button" class="btn btn-link btn-xs text"
-                                                onclick="unlike_post({{ post.pk }})">Unlike
-                                        </button>
-                                    {% else %}
-                                        <button type="button" class="btn btn-link btn-xs text"
-                                                onclick="like_post({{ post.pk }})"> Like
-                                        </button>
-                                    {% endif %}
+                            <div class="post-comments" id="post_comment_{{ post.pk }}">
+                                <div class="content-right-post-comment">
+                                    <div class="view-comments" id="view-comments-post-{{ post.pk }}">
+                                        {% return_comment_of_post_tags post.pk 4 as comments %}
+                                        {% for comment in comments %}
+                                            <div class="view-comment">
+                                                <div class="view-comment-avatar">
+                                                    <img src="{{ comment.profile.avatar.url|default_if_none:'None' }}"
+                                                         alt="avatar" width="40" height="40" class="img-rounded"
+                                                         title="{{ user.username }}">
+                                                </div>
+                                                <div class="view-comment-content">
+                                                    <div style="float: left; width: 98%;">
+                                                        <div class="view-comment-content-information">
+                                                        <span class="view-comment-content-user">
+                                                            <a href="{% url 'user:home' comment.profile.user.username %}">
+                                                                {{ comment.profile.user.first_name }} {{ comment.profile.user.last_name }}
+                                                            </a>
+                                                        </span>
+                                                        <span class="view-comment-content-data">
+                                                            {{ comment.title }}
+                                                        </span>
+                                                        </div>
+                                                        <div class="view-comment-content-like-date">
+                                                        <span class="view-comment-content-like">
+                                                            {% return_user_like_comment_tags comment.pk as users_like %}
+                                                            {% if user in users_like %}
+                                                                <button type="button" class="btn btn-link btn-xs text"
+                                                                        onclick="unlike_comment({{ comment.pk }})">
+                                                                    Unlike
+                                                                </button>
+                                                            {% else %}
+                                                                <button type="button" class="btn btn-link btn-xs text"
+                                                                        onclick="like_comment({{ comment.pk }})">Like
+                                                                </button>
+                                                            {% endif %}
+                                                        </span>
+                                                        <span class="view-comment-content-date">
+{#                                                              <a href="#">{{ post.date | date:'D d-m-Y' }}#}
+{#                                                                  at {{ post.date | date:'H:i' }}</a>#}
+                                                            <a href="#"
+                                                               title="{{ comment.date | date:'D d-m-Y' }} at {{ comment.date | date:'H:i' }}">{{ comment.date | timesince }} </a>
+                                                        </span>
+                                                        </div>
+                                                    </div>
+                                                    <div style="float: left; width: 2%;">
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-link btn-xs dropdown-toggle"
+                                                                    data-toggle="dropdown"> edit
+                                                                <span class="button-edit-dropdown"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu"
+                                                                style="min-width: 42px;padding: 0">
+                                                                <li>
+                                                                    <button id="id-btn-{{ obj.id }}-edit"
+                                                                            class="btn btn-xs btn-info btn-edit-review"
+                                                                            onclick="display_none_content('id-review-{{ obj.id }}-'); display_none_btn('id-btn-{{ obj.id }}-')"
+                                                                            style="display: block; width: 42px;margin: 0 0 3px 0">
+                                                                        Edit
+                                                                    </button>
+
+                                                                    <button id="id-btn-{{ obj.id }}-delete"
+                                                                            class="btn btn-xs btn-danger btn-edit-review"
+                                                                            onclick="confirm_delete_review('delete-review-{{ obj.id }}')"
+                                                                            style="display: block; width: 42px;">Delete
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="create-comment">
+                                        <div class="create-comment-avatar">
+                                            <img src="{{ user.profile.avatar.url|default_if_none:'None' }}" alt="avatar"
+                                                 width="40" height="40" title="{{ user.username }}" class="img-rounded">
+                                        </div>
+                                        <div class="create-comment-content">
+                                            <form action="" method="post"
+                                                  onsubmit="create_post_comment({{ post.pk }}); return false;">
+                                                {% csrf_token %}
+                                                <input type="text" class="form-control"
+                                                       id="create-comment-post-{{ post.pk }}-content"
+                                                       placeholder="new comment">
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button type="button" class="btn btn-link btn-xs text" onclick="" style="float: left">
-                                    Comment
-                                </button>
                             </div>
                         </div>
                     </div>
-                    <div class="prettyprint content-right-post-comments">
-                        <div class="post-total-like" id="number-like-post-{{ post.pk }}">
-                            <a href="#" onclick=""> {{ post.total_like }} </a> like this
-                        </div>
-                        <div class="post-comments" id="post_comment_{{ post.pk }}">
-                            <div class="content-right-post-comment">
-                                {#                            {% return_comment_of_post post.pk 5 as comments %}#}
-                                {#                            {% for comment in comments %}#}
-                                {##}
-                                {#                            {% endfor %}#}
-                                <div class="create-comment">
-                                    <div class="create-comment-avatar">
-                                        <img src="{{ user.profile.avatar.url|default_if_none:'None' }}" alt="avatar"
-                                             width="40" height="40">
-                                    </div>
-                                    <div class="create-comment-content">
-                                        <form action="" method="post"
-                                              onsubmit="create_post_comment({{ post.pk }}); return false;">
-                                            {% csrf_token %}
-                                            <input type="hidden" value="{{ post.pk }}"
-                                                   id="create-comment-post-{{ post.pk }}">
-                                            <input type="text" class="form-control"
-                                                   id="create-comment-post-{{ post.pk }}-content"
-                                                   placeholder="new comment">
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

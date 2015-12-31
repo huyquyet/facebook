@@ -1,4 +1,6 @@
 # Create your views here.
+from datetime import datetime
+
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
@@ -14,9 +16,14 @@ def post_like(request):
     reponse_data = {}
 
     if post_id and request.user:
-        like, create = LikePost.objects.get_or_create(profile=Profile.objects.get(user=request.user),
-                                                      post=Post.objects.get(pk=post_id))
+        post = Post.objects.get(pk=post_id)
+        like, create = LikePost.objects.get_or_create(profile=Profile.objects.get(user=request.user), post=post)
         like.save()
+
+        # Update time when post have a activity
+        post.date_activity = datetime.now()
+        post.save()
+
         #  Create activity
         create_activity(request.user, 'like_post', like.post.pk, 'like status')
         reponse_data['result'] = True

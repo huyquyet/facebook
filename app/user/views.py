@@ -41,6 +41,7 @@ IndexView = Index.as_view()
 class Home(DetailView):
     model = User
     template_name = 'user/home/home.html'
+    context_object_name = 'user_home'
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -52,7 +53,10 @@ class Home(DetailView):
 
     def get_context_data(self, **kwargs):
         ctx = super(Home, self).get_context_data(**kwargs)
-        ctx['posts'] = Post.objects.filter(profile__user=self.object)[:10]
+        ctx['posts'] = Post.objects.filter(profile__user=self.object).order_by('-pk')[0:10]
+        for i in ctx['posts']:
+            ctx['id_new_post'] = i.pk
+            break
         # ctx['posts'].total_like =    Post.objects.filter(profile__user=self.object).
         for post in ctx['posts']:
             post.total_like = post.get_total_like()

@@ -123,7 +123,6 @@ body {
 .content-right-post .post-information .post-avatar-name-date .post-user-avatar {
     height: 50px;
     width: 50px;
-    background-color: #00c6ff;
     float: left;
 }
 
@@ -199,14 +198,15 @@ body {
 /*}*/
 
 .content-right-post-comment .create-comment {
+    float: left;
     width: 100%;
     min-height: 40px;
+    margin-top: 4px;
 }
 
 .content-right-post-comment .create-comment .create-comment-avatar {
     height: 40px;
     width: 40px;
-    background-color: #00c6ff;
     float: left;
 }
 
@@ -215,6 +215,71 @@ body {
     width: 90%;
     min-height: 40px;
     margin-left: 5px;
+}
+
+.content-right-post-comment .view-comments {
+    width: 100%;
+}
+
+.content-right-post-comment .view-comments .view-comment {
+    float: left;
+    width: 100%;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.content-right-post-comment .view-comments .view-comment .view-comment-avatar {
+    height: 40px;
+    width: 40px;
+    float: left;
+}
+
+.content-right-post-comment .view-comments .view-comment .view-comment-content {
+    float: left;
+    width: 90%;
+    min-height: 40px;
+    margin-left: 5px;
+}
+
+.view-comment-content-user {
+    color: #3b5998;
+    font-size: 13px;
+    font-weight: bold
+}
+
+.view-comment-content-user a {
+    color: #3b5998;
+    text-decoration: none;
+}
+
+.view-comment-content-user a:hover {
+    text-decoration: underline;
+}
+
+.view-comment-content-data {
+    font-size: 13px;
+}
+
+.view-comment-content-like-date {
+    float: left;
+    /*margin-top: 7px;*/
+    width: 100%;
+    bottom: 0;
+}
+
+.view-comment-content-like {
+    float: left;
+}
+
+.view-comment-content-date {
+    float: left;
+    margin-top: 3px;
+}
+
+.view-comment-content-date a {
+    color: #696969;
+    font-size: 12px;
+    float: left;
 }
 
 /*--------------------------------- Login ------------------------------------------------*/
@@ -352,4 +417,15 @@ form.signin input::-webkit-input-placeholder {
 
 .button:hover {
     background: #ddd;
+}
+
+/*----------------------------------------------------------------------------------------*/
+.button-edit-dropdown {
+    background-image: url("../../image/btn-edit.img");
+    display: inline-block;
+    /*width: 0;*/
+    /*height: 0;*/
+    margin-left: 1px;
+    opacity: 1;
+    background-color: #080808;
 }

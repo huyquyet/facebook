@@ -1,0 +1,30 @@
+<div class="view-comment">
+    <div class="view-comment-avatar">
+        <img src="{{ comment.profile.avatar.url|default_if_none:'None' }}"
+             alt="avatar" width="40" height="40" class="img-rounded"
+             title="{{ user.username }}">
+    </div>
+    <div class="view-comment-content">
+        <div class="view-comment-content-information">
+            <span class="view-comment-content-user">
+                <a href="{% url 'user:home' comment.profile.user.username %}">
+                    {{ comment.profile.user.first_name }} {{ comment.profile.user.last_name }}
+                </a>
+            </span>
+            <span class="view-comment-content-data">
+                {{ comment.title }}
+            </span>
+        </div>
+        <div class="view-comment-content-like-date">
+            <span class="view-comment-content-like">
+                <button type="button" class="btn btn-link btn-xs text"
+                        onclick="like_comment({{ comment.pk }})">Like
+                </button>
+            </span>
+            <span class="view-comment-content-date">
+                  <a href="#"
+                     title="{{ comment.date | date:'D d-m-Y' }} at {{ comment.date | date:'H:i' }}">{{ comment.date | timesince }}</a>
+            </span>
+        </div>
+    </div>
+</div>

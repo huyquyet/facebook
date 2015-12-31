@@ -14,8 +14,8 @@ def create_activity(user, activity, object_id, data):
     if type_activity != 0:
         try:
             activity, create = Activity.objects.get_or_create(profile=Profile.objects.get(user=user),
-                                                              type_activity=type_activity,
-                                                              object_id=object_id, data=data)
+                                                              type_activity=type_activity, object_id=object_id,
+                                                              data=data)
             activity.date = datetime.now()
             activity.save()
         except Exception as e:
