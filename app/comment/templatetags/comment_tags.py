@@ -17,6 +17,7 @@ def return_comment_of_post_tags(post_id, count):
         return comment
 
 
+@register.assignment_tag
 def return_number_comment_of_post(post_id):
     count = Comment.objects.filter(post__id=post_id).count()
     return count

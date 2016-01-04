@@ -63,3 +63,29 @@ def comment_update(request):
     else:
         response_data['result'] = False
         return JsonResponse(response_data)
+
+
+def load_more_comment(request):
+    post_id = request.POST.get('post_id', False)
+    start = request.POST.get('start', False)
+    end = request.POST.get('end', False)
+    number_comment = request.POST.get('number_comment', False)
+    response_data = []
+    if int(end) < int(number_comment):
+        comments = Comment.objects.filter(post__id=post_id).order_by('-id')[int(start):int(end)]
+    else:
+        comments = Comment.objects.filter(post__id=post_id).order_by('-id')[int(start):int(number_comment)]
+
+    for i in range(len(comments)):
+        comment = load_one_comment(comments[i].id)
+        response_data.append(
+            render_to_string('comment/comment_post.html', {'comment': comment, 'user': request.user}))
+        data_1 = {
+            'data': response_data
+        }
+    return JsonResponse(data_1)
+
+
+def load_one_comment(id_comment):
+    obj = Comment.objects.get(id=id_comment)
+    return obj

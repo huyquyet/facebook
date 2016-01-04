@@ -121,3 +121,33 @@ function update_post_comment(comment_id) {
     }
 }
 
+function load_more_comment(post_id, start, end, number_comment) {
+    var end_start = end;
+    var end_end = end + (end - start);
+    $.ajax({
+        url: '/comment/load_more_comment/',
+        type: 'POST',
+        data: {
+            post_id: post_id,
+            start: start,
+            end: end,
+            number_comment: number_comment
+        },
+        success: function (json) {
+            var data = json.data;
+            for (var i = 0; i < data.length; i++) {
+                $('#view_comments_post_' + post_id).prepend(data[i]);
+            }
+            if (end < number_comment) {
+                $('#view_more_comment_' + post_id).html('<button type="button" class="btn btn-link btn-xs pull-left"' +
+                    'onclick="load_more_comment(' + post_id + ', ' + end_start + ' ,' + end_end + ',' + number_comment + '">View more comment...</button>');
+            }
+            else {
+                $('#view_more_comment_' + post_id).hide();
+            }
+        },
+        error: function (json) {
+            alert('Error');
+        }
+    });
+}

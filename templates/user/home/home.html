@@ -77,6 +77,17 @@
                             <div class="post-comments" id="post_comment_{{ post.pk }}">
                                 <div class="content-right-post-comment">
                                     <div class="view-comments" id="view_comments_post_{{ post.pk }}">
+                                        {% return_number_comment_of_post post.pk as number_comment %}
+                                        {% if number_comment > 4 %}
+                                            <div class="view-more-comment" id="view_more_comment_{{ post.pk }}">
+                                                <button type="button" class="btn btn-link btn-xs pull-left"
+                                                        onclick="load_more_comment({{ post.pk }}, 4 ,8,{{ number_comment }})">
+                                                    View more comment...
+                                                </button>
+                                                <span class="pull-right" style="font-size: 12px;color: #23527c"> .... 4 of {{ number_comment }}</span>
+                                            </div>
+
+                                        {% endif %}
                                         {% return_comment_of_post_tags post.pk 4 as comments %}
                                         {% for comment in comments %}
                                             <div class="view-comment" id="view_comment_post_{{ comment.pk }}">
