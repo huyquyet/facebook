@@ -43,8 +43,6 @@
                                             </a>
                                         </div>
                                         <div class="post-date-time">
-                                            {#                                            <a href="#">{{ post.date | date:'D d-m-Y' }}#}
-                                            {#                                                at {{ post.date | date:'H:i' }}</a>#}
                                             <a href="#"
                                                title="{{ post.date | date:'D d-m-Y' }} at {{ post.date | date:'H:i' }}">{{ post.date | timesince }} </a>
                                         </div>
@@ -54,7 +52,7 @@
                                     {{ post.title }}
                                 </div>
                                 <div class="post-like-comment">
-                                    <div id="post-like-{{ post.pk }}" style="float: left">
+                                    <div id="post_like_{{ post.pk }}" style="float: left">
                                         {% if user in post.users_like %}
                                             <button type="button" class="btn btn-link btn-xs text"
                                                     onclick="unlike_post({{ post.pk }})">Unlike
@@ -73,15 +71,15 @@
                             </div>
                         </div>
                         <div class="prettyprint content-right-post-comments">
-                            <div class="post-total-like" id="number-like-post-{{ post.pk }}">
+                            <div class="post-total-like" id="number_like_post_{{ post.pk }}">
                                 <a href="#" onclick=""> {{ post.total_like }} </a> like this
                             </div>
                             <div class="post-comments" id="post_comment_{{ post.pk }}">
                                 <div class="content-right-post-comment">
-                                    <div class="view-comments" id="view-comments-post-{{ post.pk }}">
+                                    <div class="view-comments" id="view_comments_post_{{ post.pk }}">
                                         {% return_comment_of_post_tags post.pk 4 as comments %}
                                         {% for comment in comments %}
-                                            <div class="view-comment">
+                                            <div class="view-comment" id="view_comment_post_{{ comment.pk }}">
                                                 <div class="view-comment-avatar">
                                                     <img src="{{ comment.profile.avatar.url|default_if_none:'None' }}"
                                                          alt="avatar" width="40" height="40" class="img-rounded"
@@ -90,62 +88,102 @@
                                                 <div class="view-comment-content">
                                                     <div style="float: left; width: 98%;">
                                                         <div class="view-comment-content-information">
-                                                        <span class="view-comment-content-user">
-                                                            <a href="{% url 'user:home' comment.profile.user.username %}">
-                                                                {{ comment.profile.user.first_name }} {{ comment.profile.user.last_name }}
-                                                            </a>
-                                                        </span>
-                                                        <span class="view-comment-content-data">
-                                                            {{ comment.title }}
-                                                        </span>
+                                                            <span class="view-comment-content-user">
+                                                                <a href="{% url 'user:home' comment.profile.user.username %}">
+                                                                    {{ comment.profile.user.first_name }} {{ comment.profile.user.last_name }}
+                                                                </a>
+                                                            </span>
+                                                            <span class="view-comment-content-data"
+                                                                  id="view_comment_content_data_{{ comment.pk }}">
+                                                                {{ comment.title }}
+                                                            </span>
+
+                                                            <form action="" method="post"
+                                                                  id="view_comment_content_form_data_edit_{{ comment.pk }}"
+                                                                  class="view-comment-content-form-data-edit"
+                                                                  onsubmit="update_post_comment({{ comment.pk }}); return false;">
+                                                                {% csrf_token %}
+                                                                <textarea class="write-comment-edit"
+                                                                          id="view_comment_content_data_edit_{{ comment.pk }}">{{ comment.title }}</textarea>
+                                                            </form>
                                                         </div>
                                                         <div class="view-comment-content-like-date">
-                                                        <span class="view-comment-content-like">
-                                                            {% return_user_like_comment_tags comment.pk as users_like %}
-                                                            {% if user in users_like %}
-                                                                <button type="button" class="btn btn-link btn-xs text"
-                                                                        onclick="unlike_comment({{ comment.pk }})">
-                                                                    Unlike
-                                                                </button>
-                                                            {% else %}
-                                                                <button type="button" class="btn btn-link btn-xs text"
-                                                                        onclick="like_comment({{ comment.pk }})">Like
-                                                                </button>
-                                                            {% endif %}
-                                                        </span>
-                                                        <span class="view-comment-content-date">
-{#                                                              <a href="#">{{ post.date | date:'D d-m-Y' }}#}
-{#                                                                  at {{ post.date | date:'H:i' }}</a>#}
-                                                            <a href="#"
-                                                               title="{{ comment.date | date:'D d-m-Y' }} at {{ comment.date | date:'H:i' }}">{{ comment.date | timesince }} </a>
-                                                        </span>
-                                                        </div>
-                                                    </div>
-                                                    <div style="float: left; width: 2%;">
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-link btn-xs dropdown-toggle"
-                                                                    data-toggle="dropdown"> edit
-                                                                <span class="button-edit-dropdown"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu"
-                                                                style="min-width: 42px;padding: 0">
-                                                                <li>
-                                                                    <button id="id-btn-{{ obj.id }}-edit"
-                                                                            class="btn btn-xs btn-info btn-edit-review"
-                                                                            onclick="display_none_content('id-review-{{ obj.id }}-'); display_none_btn('id-btn-{{ obj.id }}-')"
-                                                                            style="display: block; width: 42px;margin: 0 0 3px 0">
-                                                                        Edit
+                                                            <span class="view-comment-content-like"
+                                                                  id="view_comment_content_like_{{ comment.pk }}">
+                                                                {% return_user_like_comment_tags comment.pk as users_like %}
+                                                                {% if user in users_like %}
+                                                                    <button type="button"
+                                                                            class="btn btn-link btn-xs text"
+                                                                            onclick="unlike_comment({{ comment.pk }})">
+                                                                        Unlike
                                                                     </button>
+                                                                {% else %}
+                                                                    <button type="button"
+                                                                            class="btn btn-link btn-xs text"
+                                                                            onclick="like_comment({{ comment.pk }})">
+                                                                        Like
+                                                                    </button>
+                                                                {% endif %}
+                                                            </span>
+                                                            {% return_comment_like_comment_tags comment.pk as count_like_comment %}
 
-                                                                    <button id="id-btn-{{ obj.id }}-delete"
-                                                                            class="btn btn-xs btn-danger btn-edit-review"
-                                                                            onclick="confirm_delete_review('delete-review-{{ obj.id }}')"
-                                                                            style="display: block; width: 42px;">Delete
-                                                                    </button>
-                                                                </li>
-                                                            </ul>
+                                                            <div class="view-comment-content-like-number"
+                                                                 id="view_comment_content_like_number_{{ comment.pk }}"
+                                                                 style="display: {% if count_like_comment > 0 %}block{% else %} none {% endif %}">
+                                                                <a href="#">
+                                                                    <img src="../../../static/image/like.png">
+                                                                    <span class="text"
+                                                                          id="number_like_comment_{{ comment.pk }}">
+                                                                        {{ count_like_comment }}
+                                                                    </span>
+                                                                </a>
+                                                            </div>
+
+                                                            <span class="view-comment-content-date">
+                                                                <a href="#"
+                                                                   title="{{ comment.date | date:'D d-m-Y' }} at {{ comment.date | date:'H:i' }}">{{ comment.date | timesince }} </a>
+                                                            </span>
                                                         </div>
                                                     </div>
+                                                    {% if user == comment.profile.user %}
+                                                        <div style="float: left; width: 2%;">
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-link btn-xs dropdown-toggle"
+                                                                        data-toggle="dropdown"
+                                                                        id="id_btn_{{ comment.id }}_edit_comment">
+                                                                    <span class="button-edit-dropdown caret"></span>
+                                                                </button>
+                                                                <ul class="dropdown-menu pull-right"
+                                                                    style="min-width: 42px;padding: 3px;">
+                                                                    <li>
+                                                                        <button id="id_btn_{{ comment.id }}_edit_comment"
+                                                                                class="btn btn-xs btn-default btn-edit-comment-post"
+                                                                                onclick="display_block_content({{ comment.id }}); display_block_btn({{ comment.id }})">
+                                                                            Edit
+                                                                        </button>
+
+                                                                        <button id="id_btn_{{ comment.id }}_delete_comment"
+                                                                                class="btn btn-xs btn-default btn-delete-comment-post"
+                                                                                onclick="confirm_delete_post_comment({{ comment.id }})"
+                                                                                style="display: block; width: 42px;">
+                                                                            Delete
+                                                                        </button>
+                                                                    </li>
+                                                                </ul>
+                                                                <button id="id_btn_{{ comment.id }}_update_comment"
+                                                                        class="btn btn-xs btn-default btn-update-comment-post"
+                                                                        onclick="update_post_comment({{ comment.pk }})">
+                                                                    Update
+                                                                </button>
+
+                                                                <button id="id_btn_{{ comment.id }}_cancel_comment"
+                                                                        class="btn btn-xs btn-default btn-cancel-cancel-post"
+                                                                        onclick="display_none_content({{ comment.id }}); display_none_btn({{ comment.id }})">
+                                                                    Cancel
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         {% endfor %}
@@ -160,7 +198,7 @@
                                                   onsubmit="create_post_comment({{ post.pk }}); return false;">
                                                 {% csrf_token %}
                                                 <input type="text" class="form-control"
-                                                       id="create-comment-post-{{ post.pk }}-content"
+                                                       id="create_comment_post_{{ post.pk }}_content"
                                                        placeholder="new comment">
                                             </form>
                                         </div>
@@ -176,5 +214,27 @@
 {% endblock %}
 
 {% block script %}
+    <script type="text/javascript">
 
+        {% comment %}function display_none_btn(id) {
+            $('#id_btn_' + id + '_edit_comment').css('display', 'block');
+            $('#id_btn_' + id + '_delete_comment').css('display', 'block');
+            $('#id_btn_' + id + '_update_comment').css('display', 'none');
+            $('#id_btn_' + id + '_cancel_comment').css('display', 'none');
+        }
+        function display_none_content(id) {
+            $('#view_comment_content_data_' + id).css('display', 'block');
+            $('#view_comment_content_form_data_edit_' + id).css('display', 'none');
+        }
+        function display_block_btn(id) {
+            $('#id_btn_' + id + '_edit_comment').css('display', 'none');
+            $('#id_btn_' + id + '_delete_comment').css('display', 'none');
+            $('#id_btn_' + id + '_update_comment').css('display', 'block');
+            $('#id_btn_' + id + '_cancel_comment').css('display', 'block');
+        }
+        function display_block_content(id) {
+            $('#view_comment_content_data_' + id).css('display', 'none');
+            $('#view_comment_content_form_data_edit_' + id).css('display', 'block');
+        }{% endcomment %}
+    </script>
 {% endblock %}

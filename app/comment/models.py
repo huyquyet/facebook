@@ -12,3 +12,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='post_comment')
     title = models.TextField(default='')
     date = models.DateTimeField(default=timezone.now)
+
+    def get_total_like(self):
+        # return LikePost.objects.filter(post=self).count()
+        return self.post_likecomment.all().count()

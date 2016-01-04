@@ -37,9 +37,9 @@ function like_post(post_id) {
             post_id: post_id
         },
         success: function (json) {
-            $('#post-like-' + post_id).html('<button type="button" class="btn btn-link btn-xs text"' +
+            $('#post_like_' + post_id).html('<button type="button" class="btn btn-link btn-xs text"' +
                 'onclick="unlike_post(' + post_id + ')"> Unlike</button>');
-            $('#number-like-post-' + post_id).html('<a href="#"> ' + json.total_like_post + ' </a> like this');
+            $('#number_like_post_' + post_id).html('<a href="#"> ' + json.total_like_post + ' </a> like this');
         },
         error: function (json) {
             alert('Error submit data')
@@ -65,26 +65,3 @@ function unlike_post(post_id) {
     });
 }
 
-function create_post_comment(post_id) {
-    var values = $('#create-comment-post-' + post_id + '-content');
-    var content_comment = Trim(values.val());
-    if (content_comment == '') {
-        return false
-    } else {
-        $.ajax({
-            url: 'comment/create/post',
-            type: 'POST',
-            data: {
-                post_id: post_id,
-                content_comment: content_comment
-            },
-            success: function (json) {
-                values.val('');
-                $('#view-comments-post-' + post_id).append(json.html);
-            },
-            error: function (json) {
-                alert('Error submit data')
-            }
-        });
-    }
-}

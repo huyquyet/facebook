@@ -242,9 +242,11 @@ body {
 }
 
 .view-comment-content-user {
+    display: block;
     color: #3b5998;
     font-size: 13px;
-    font-weight: bold
+    font-weight: bold;
+
 }
 
 .view-comment-content-user a {
@@ -257,6 +259,12 @@ body {
 }
 
 .view-comment-content-data {
+    display: block;
+    font-size: 13px;
+}
+
+.view-comment-content-form-data-edit {
+    display: none;
     font-size: 13px;
 }
 
@@ -271,6 +279,26 @@ body {
     float: left;
 }
 
+.view-comment-content-like-number {
+    float: left;
+    margin-top: 3px;
+    margin-right: 5px;
+
+}
+
+.view-comment-content-like-number .text {
+    margin-left: 2px;
+    margin-top: -1px;
+    float: left;
+}
+
+.view-comment-content-like-number img {
+    float: left;
+    margin-top: 1px;
+    width: 11px;
+    height: 11px;
+}
+
 .view-comment-content-date {
     float: left;
     margin-top: 3px;
@@ -280,6 +308,15 @@ body {
     color: #696969;
     font-size: 12px;
     float: left;
+}
+
+.write-comment-edit {
+    resize: none;
+    border: 0;
+    width: 95%;
+    box-sizing: border-box;
+    min-height: 25px;
+
 }
 
 /*--------------------------------- Login ------------------------------------------------*/
@@ -421,11 +458,30 @@ form.signin input::-webkit-input-placeholder {
 
 /*----------------------------------------------------------------------------------------*/
 .button-edit-dropdown {
-    background-image: url("../../image/btn-edit.img");
-    display: inline-block;
-    /*width: 0;*/
-    /*height: 0;*/
     margin-left: 1px;
+    opacity: 0.2;
+}
+
+.button-edit-dropdown :hover {
     opacity: 1;
-    background-color: #080808;
+}
+
+.button-edit-dropdown :focus {
+    opacity: 1;
+}
+
+.btn-edit-review {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.btn-edit-comment-post, .btn-delete-comment-post {
+    min-width: 45px;
+    display: block;
+    margin: 0 0 3px 0
+}
+
+.btn-update-comment-post, .btn-cancel-cancel-post {
+    display: none;
+    margin: 0 0 3px 0
 }

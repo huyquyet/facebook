@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 
+from app.comment.models import Comment
 from app.like.models import LikePost, LikeComment
 from app.post.models import Post
 from app.user.models import Profile
@@ -28,3 +29,13 @@ def return_user_like_comment(comment_id):
         user = Profile.objects.get(pk=profile).user
         users.append(user)
     return users
+
+
+def return_count_like_comment(comment_id):
+    like = LikeComment.objects.filter(comment__id=comment_id).count()
+    return like
+
+
+def return_total_like_comment(comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    return comment.get_total_like()

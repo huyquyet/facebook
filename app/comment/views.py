@@ -30,3 +30,36 @@ def comment_create(request):
     else:
         response_data['result'] = False
         return JsonResponse(response_data)
+
+
+def comment_delete(request):
+    comment_id = request.POST.get('comment_id', False)
+    response_data = {}
+
+    if comment_id and request.user:
+        comment = Comment.objects.get(pk=comment_id)
+        comment.delete()
+
+        response_data['result'] = True
+        return JsonResponse(response_data)
+    else:
+        response_data['result'] = False
+        return JsonResponse(response_data)
+
+
+def comment_update(request):
+    content_comment = request.POST.get('content_comment', False)
+    comment_id = request.POST.get('comment_id', False)
+    response_data = {}
+
+    if comment_id and content_comment and request.user:
+        comment = Comment.objects.get(pk=comment_id)
+        comment.title = content_comment
+        comment.save()
+
+        response_data['result'] = True
+        response_data['data'] = comment.title
+        return JsonResponse(response_data)
+    else:
+        response_data['result'] = False
+        return JsonResponse(response_data)

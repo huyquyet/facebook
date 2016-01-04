@@ -1,4 +1,3 @@
-{#{% load comment_tags %}#}
 <div id="view_post_{{ post.pk }}">
     <div class="prettyprint content-right-post" id="post_{{ post.pk }}">
         <div class="post-information">
@@ -46,10 +45,6 @@
         </div>
         <div class="post-comments" id="post_comment_{{ post.pk }}">
             <div class="content-right-post-comment">
-                {#                            {% return_comment_of_post post.pk 5 as comments %}#}
-                {#                            {% for comment in comments %}#}
-                {##}
-                {#                            {% endfor %}#}
                 <div class="create-comment">
                     <div class="create-comment-avatar">
                         <img src="{{ user.profile.avatar.url|default_if_none:'None' }}" alt="avatar"
