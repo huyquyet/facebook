@@ -2,10 +2,10 @@
     <div class="prettyprint content-right-post" id="post_{{ post.pk }}">
         <div class="post-information">
             <div class="post-avatar-name-date">
-                <div class="post-user-avatar"><img
-                        src="{{ post.profile_create.avatar.url|default_if_none:'None' }}"
-                        alt="avatar"
-                        title="{{ post.profile_create.user.first_name }} {{ post.profile_create.user.last_name }}">
+                <div class="post-user-avatar">
+                    <img src="{{ post.profile_create.avatar.url|default_if_none:'None' }}"
+                         alt="{{ post.profile_create.user.first_name }} {{ post.profile_create.user.last_name }}"
+                         title="{{ post.profile_create.user.first_name }} {{ post.profile_create.user.last_name }}">
                 </div>
                 <div class="post-name-date">
                     <div class="post-user-full-name">

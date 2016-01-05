@@ -3,27 +3,7 @@
 {% load like_tags %}
 {% block content-right %}
     <div class="request-info pull-left " style="clear: both; width: 100%;">
-        <div class="prettyprint content-right-status" style="position: relative">
-            <div class="title-status"><b>Write status home</b></div>
-            <form action="#" method="POST" id="create_post_{{ user_home.pk }}">
-                <div class="content-status">
-                    <div class="pull-left avatar">
-                        avata
-                    </div>
-                    <div class="pull-left text-status">
-                        <textarea id="write_status_home_{{ user_home.pk }}" class="write-status"
-                                  placeholder="What's on your mind?"></textarea>
-                        <input type="hidden" value="{{ user_home.pk }}" name="user_id" id="user_id">
-                        <input type="hidden" value="{{ id_new_post }}" name="id_new_post" id="id_new_post">
-                    </div>
-                </div>
-                <div class="button-status">
-                    <button type="button" class=" btn btn-default btn-sm pull-right margin" name="post_status"
-                            onclick="create_post_status({{ user.pk }}); return false;"> Post
-                    </button>
-                </div>
-            </form>
-        </div>
+        {% include 'user/status/new_status.html' %}
         <div class="content-right-posts" ng-controller="LoadPostHomeController">
             <div id="view_posts">
                 {% for post in posts %}
@@ -84,7 +64,7 @@
                                                         onclick="load_more_comment({{ post.pk }}, 4 ,8,{{ number_comment }})">
                                                     View more comment...
                                                 </button>
-                                                <span class="pull-right" style="font-size: 12px;color: #23527c"> .... 4 of {{ number_comment }}</span>
+                                                <span class="pull-right" style="font-size: 11px;color: #23527c"> .... 4 of {{ number_comment }}</span>
                                             </div>
 
                                         {% endif %}
@@ -226,26 +206,5 @@
 
 {% block script %}
     <script type="text/javascript">
-
-        {% comment %}function display_none_btn(id) {
-            $('#id_btn_' + id + '_edit_comment').css('display', 'block');
-            $('#id_btn_' + id + '_delete_comment').css('display', 'block');
-            $('#id_btn_' + id + '_update_comment').css('display', 'none');
-            $('#id_btn_' + id + '_cancel_comment').css('display', 'none');
-        }
-        function display_none_content(id) {
-            $('#view_comment_content_data_' + id).css('display', 'block');
-            $('#view_comment_content_form_data_edit_' + id).css('display', 'none');
-        }
-        function display_block_btn(id) {
-            $('#id_btn_' + id + '_edit_comment').css('display', 'none');
-            $('#id_btn_' + id + '_delete_comment').css('display', 'none');
-            $('#id_btn_' + id + '_update_comment').css('display', 'block');
-            $('#id_btn_' + id + '_cancel_comment').css('display', 'block');
-        }
-        function display_block_content(id) {
-            $('#view_comment_content_data_' + id).css('display', 'none');
-            $('#view_comment_content_form_data_edit_' + id).css('display', 'block');
-        }{% endcomment %}
     </script>
 {% endblock %}

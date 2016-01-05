@@ -3,7 +3,6 @@
  */
 
 function create_post_status(user_post_id) {
-    var id_new_post = $('#id_new_post').val();
     var user_home_id = $('#user_id').val();
     var content_post = Trim($('#write_status_home_' + user_home_id).val());
 
@@ -19,8 +18,7 @@ function create_post_status(user_post_id) {
             },
             success: function (json) {
                 $('#write_status_home_' + user_home_id).val('');
-                $('#view_post_' + id_new_post).before(json.html);
-                $('#id_new_post').val(json.id_new_post);
+                $('#view_posts').prepend(json.html);
             },
             error: function (json) {
             }

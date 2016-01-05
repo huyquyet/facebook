@@ -71,6 +71,7 @@ def load_more_comment(request):
     end = request.POST.get('end', False)
     number_comment = request.POST.get('number_comment', False)
     response_data = []
+    data_1 = {}
     if int(end) < int(number_comment):
         comments = Comment.objects.filter(post__id=post_id).order_by('-id')[int(start):int(end)]
     else:

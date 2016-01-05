@@ -10,7 +10,7 @@
             <meta name="robots" content="NONE,NOARCHIVE"/>
         {% endblock %}
 
-        <title>{% block title %}Django REST framework{% endblock %}</title>
+        <title>{% block title %}{{ request.session.title }}{% endblock %}</title>
 
         {% block style %}
             {% block bootstrap_theme %}
@@ -52,10 +52,46 @@
             <!-- Content -->
             <div class="content-main">
                 <ul class="breadcrumb">
-                    {#                    <img src="../../../static/media/base_user_cover.jpg"  width="100%"#}
-                    {#                         height="236">#}
                     <li>
-                        Cover
+                        <div class="cover">
+                            <img src="{{ user_home.profile.cover.url|default_if_none:'None' }}"
+                                 alt="{{ user_home.first_name }} {{ user_home.last_name }}"
+                                 class="img-rounded " title="{{ user_home.first_name }} {{ user_home.last_name }}">
+
+                            <div class="avatar">
+                                <img src="{{ user_home.profile.avatar.url|default_if_none:'None' }}"
+                                     alt="{{ user_home.first_name }} {{ user_home.last_name }}"
+                                     class="img-rounded img-thumbnail pull-left"
+                                     title="{{ user_home.first_name }} {{ user_home.last_name }}">
+
+                                <nav class=" pull-left navbar navbar-default"
+                                     style="background-color: transparent; border-color: transparent;">
+                                    {#                                    <div class="container-fluid">#}
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse">
+                                        <ul class="nav navbar-nav">
+                                            <li {% if  menu == 'timeline' %}class="active"{% endif %}>
+                                                <a href="{% url 'user:home' user.username %}">Timeline
+                                                    <span class=" sr-only">(current)</span>
+                                                </a>
+                                            </li>
+                                            <li {% if  menu == 'about' %}class="active"{% endif %}>
+                                                <a href="{% url 'user:home' user.username %}">About</a>
+                                            </li>
+                                            <li {% if  menu == 'photo' %}class="active"{% endif %}>
+                                                <a href="{% url 'user:home' user.username %}">Photo </a>
+                                            </li>
+                                            <li {% if  menu == 'friend' %}class="active"{% endif %}>
+                                                <a href="{% url 'user:home' user.username %}">Friend</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.navbar-collapse -->
+                                    {#                                    </div>#}
+                                    <!-- /.container-fluid -->
+                                </nav>
+                            </div>
+                        </div>
                     </li>
                 </ul>
                 <div class="row">

@@ -49,15 +49,13 @@ class Home(DetailView):
 
     def get_object(self, queryset=None):
         self.object = User.objects.get(username=self.kwargs['username'])
+        self.request.session['title'] = self.object.first_name + ' ' + self.object.last_name
         return self.object
 
     def get_context_data(self, **kwargs):
         ctx = super(Home, self).get_context_data(**kwargs)
+        ctx['menu'] = 'timeline'
         ctx['posts'] = Post.objects.filter(profile__user=self.object).order_by('-pk')[0:10]
-        for i in ctx['posts']:
-            ctx['id_new_post'] = i.pk
-            break
-        # ctx['posts'].total_like =    Post.objects.filter(profile__user=self.object).
         for post in ctx['posts']:
             post.total_like = post.get_total_like()
             post.users_like = return_user_like_post(post.pk)
@@ -69,7 +67,7 @@ HomeView = Home.as_view()
 
 class UserLogin(FormView):
     form_class = AuthenticationForm
-    template_name = 'user/user_login.html'
+    template_name = 'user/account/user_login.html'
 
     def form_valid(self, form):
         user_form = form.get_user()
@@ -94,7 +92,7 @@ def UserLogoutView(request):
 
 class UserRegister(FormView):
     form_class = UserCreationForm
-    template_name = 'user/user_register.html'
+    template_name = 'user/account/user_register.html'
 
     def form_valid(self, form):
         form.instance.is_staff = False
@@ -114,8 +112,9 @@ UserRegisterView = UserRegister.as_view()
 
 class UserEditProfile(UpdateView):
     model = User
-    template_name = 'user/user_edit_profile.html'
+    template_name = 'user/account/user_edit_profile.html'
     fields = ['first_name', 'last_name', 'email']
+    context_object_name = 'user_home'
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -137,9 +136,10 @@ UserEditProfileView = UserEditProfile.as_view()
 
 class UserChangePass(UpdateView):
     model = User
-    template_name = 'user/user_change_pass.html'
+    template_name = 'user/account/user_change_pass.html'
     form_class = PasswordChangeForm
     # fields = ['first_name', 'last_name', 'email']
+    context_object_name = 'user_home'
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):

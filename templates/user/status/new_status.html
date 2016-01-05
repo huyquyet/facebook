@@ -1,0 +1,22 @@
+<div class="prettyprint content-right-status" style="position: relative">
+    <div class="title-status"><b>Write status home</b></div>
+    <form action="#" method="POST" id="create_post_{{ user_home.pk }}">
+        <div class="content-status">
+            <div class="pull-left avatar">
+                <img src="{{ user.profile.avatar.url|default_if_none:'None' }}"
+                     alt="avatar" class="img-rounded" width="75" height="75"
+                     title="{{ user.first_name }} {{ user.last_name }}">
+            </div>
+            <div class="pull-left text-status">
+                        <textarea id="write_status_home_{{ user_home.pk }}" class="write-status"
+                                  placeholder="What's on your mind?"></textarea>
+                <input type="hidden" value="{{ user_home.pk }}" name="user_id" id="user_id">
+            </div>
+        </div>
+        <div class="button-status">
+            <button type="button" class=" btn btn-default btn-sm pull-right margin" name="post_status"
+                    onclick="create_post_status({{ user.pk }}); return false;"> Post
+            </button>
+        </div>
+    </form>
+</div>

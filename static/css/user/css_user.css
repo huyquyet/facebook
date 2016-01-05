@@ -1,11 +1,47 @@
 body {
     background-color: #efefef;
+    /*width: 50%;*/
 }
 
-.cover {
-    padding: 15px 15px;
-    margin-bottom: 30px;
+.breadcrumb {
     position: relative;
+    padding: 5px 5px;
+}
+
+.breadcrumb .cover {
+    position: relative;
+    height: 396px;
+}
+
+.breadcrumb .cover img {
+    width: 1130px;
+    height: 350px;
+    position: relative;
+
+}
+
+.breadcrumb .avatar {
+    position: absolute;
+    height: 40px;
+    width: 100%;
+}
+
+.breadcrumb .avatar img {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    top: -110px;
+    margin-left: 10px;
+
+}
+.breadcrumb .avatar li{
+ margin-left: 15px;
+}
+.breadcrumb .avatar li a {
+    color: #3b5998;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .content-main {
@@ -65,13 +101,14 @@ body {
 .content-status {
     position: relative;
     min-height: 120px;
+    width: 100%;
 }
 
 .content-status > .avatar {
-    width: 75px;
-    height: 75px;
-    background-color: #1b6d85;
-    margin: 10px;
+    width: 10%;
+    /*height: 75px;*/
+    /*background-color: #1b6d85;*/
+    padding: 10px;
 }
 
 .content-status > .text-status {
@@ -124,6 +161,11 @@ body {
     height: 50px;
     width: 50px;
     float: left;
+}
+
+.content-right-post .post-information .post-avatar-name-date .post-user-avatar img {
+    height: 50px;
+    width: 50px;
 }
 
 .content-right-post .post-information .post-avatar-name-date .post-name-date {
@@ -319,9 +361,10 @@ body {
 
 }
 
-.view-more-comment{
- width: 90%
+.view-more-comment {
+    width: 90%
 }
+
 /*--------------------------------- Login ------------------------------------------------*/
 .post {
     margin: 0 auto;

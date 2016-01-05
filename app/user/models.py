@@ -12,9 +12,15 @@ def _path_to_avatar(instance, filename):
                                                      file_name=filename)
 
 
+def _path_to_cover(instance, filename):
+    return '{user_id}/{dir_name}/{file_name}'.format(user_id=instance.user.id, dir_name=settings.COVER_DIR,
+                                                     file_name=filename)
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
     avatar = models.ImageField(upload_to=_path_to_avatar, max_length=255, default='avatar/default.jpg', blank=False)
+    cover = models.ImageField(upload_to=_path_to_cover, max_length=255, default='cover/default.jpg', blank=False)
     address = models.TextField(default='')
 
     follows = models.ManyToManyField('self', through='Follow', through_fields=('following', 'follower'),

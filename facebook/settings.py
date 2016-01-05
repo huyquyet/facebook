@@ -121,6 +121,8 @@ MEDIA_URL = '/media/'
 
 AVATAR_DIR = 'avatar'
 
+COVER_DIR = 'cover'
+
 TIMELINE = 'timeline'
 
 LOGIN_URL = '/user/login'
