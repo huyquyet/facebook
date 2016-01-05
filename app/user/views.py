@@ -8,31 +8,35 @@ from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView, FormView, UpdateView, DetailView
+from django.views.generic import FormView, UpdateView, DetailView, ListView
+from django.views.generic.detail import SingleObjectMixin
 
 from app.like.function import return_user_like_post
 from app.post.models import Post
 from app.user.models import Profile
 
 
-class Index(TemplateView):
+class Index(SingleObjectMixin, ListView):
+    model = User
+    context_object_name = 'user_home'
     template_name = 'user/timeline/time_line.html'
-    # login = False
-    #
-    # def dispatch(self, request, *args, **kwargs):
-    #     if self.request.user.is_authenticated():
-    #         self.login = True
-    #     else:
-    #         self.login = False
-    #
-    # def get_context_data(self, **kwargs):
-    #     ctx = super(Index, self).get_context_data(**kwargs)
-    #     ctx['login'] = self.login
-    #     if self.login:
-    #         pass
-    #     else:
-    #         pass
-    #     return ctx
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated():
+            self.request.session['title'] = 'Facebook'
+            self.object = self.request.user
+        else:
+            return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['menu'] = 'timeline'
+        ctx['posts'] = Post.objects.filter(profile__user=self.object).order_by('-pk')[0:10]
+        for post in ctx['posts']:
+            post.total_like = post.get_total_like()
+            post.users_like = return_user_like_post(post.pk)
+        return ctx
 
 
 IndexView = Index.as_view()
