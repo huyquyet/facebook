@@ -26,5 +26,7 @@ urlpatterns = [
     url(r'^post/', include('app.post.urls', namespace='post')),
     url(r'^like/', include('app.like.urls', namespace='like')),
     url(r'^comment/', include('app.comment.urls', namespace='comment')),
+    url(r'^friend/', include('app.friend.urls', namespace='friend')),
+    url(r'^activity/', include('app.activity.urls', namespace='activity')),
 
 ]

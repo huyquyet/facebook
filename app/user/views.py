@@ -11,8 +11,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import FormView, UpdateView, DetailView, ListView
 from django.views.generic.detail import SingleObjectMixin
 
-from app.like.function import return_user_like_post
-from app.post.models import Post
+from app.user.function import get_post_timeline, get_post_home, check_relationship_user
 from app.user.models import Profile
 
 
@@ -26,16 +25,12 @@ class Index(SingleObjectMixin, ListView):
         if self.request.user.is_authenticated():
             self.request.session['title'] = 'Facebook'
             self.object = self.request.user
-        else:
-            return super().dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['menu'] = 'timeline'
-        ctx['posts'] = Post.objects.filter(profile__user=self.object).order_by('-pk')[0:10]
-        for post in ctx['posts']:
-            post.total_like = post.get_total_like()
-            post.users_like = return_user_like_post(post.pk)
+        ctx['posts'] = get_post_timeline(self.request.user.pk)
         return ctx
 
 
@@ -59,10 +54,8 @@ class Home(DetailView):
     def get_context_data(self, **kwargs):
         ctx = super(Home, self).get_context_data(**kwargs)
         ctx['menu'] = 'timeline'
-        ctx['posts'] = Post.objects.filter(profile__user=self.object).order_by('-pk')[0:10]
-        for post in ctx['posts']:
-            post.total_like = post.get_total_like()
-            post.users_like = return_user_like_post(post.pk)
+        ctx['posts'] = get_post_home(self.object.pk)
+        ctx['friend_status'] = check_relationship_user(self.request.user.pk, self.object.pk)
         return ctx
 
 

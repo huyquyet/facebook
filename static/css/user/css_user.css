@@ -3,47 +3,6 @@ body {
     /*width: 50%;*/
 }
 
-.breadcrumb {
-    position: relative;
-    padding: 5px 5px;
-}
-
-.breadcrumb .cover {
-    position: relative;
-    height: 396px;
-}
-
-.breadcrumb .cover img {
-    width: 1130px;
-    height: 350px;
-    position: relative;
-
-}
-
-.breadcrumb .avatar {
-    position: absolute;
-    height: 40px;
-    width: 100%;
-}
-
-.breadcrumb .avatar img {
-    width: 150px;
-    height: 150px;
-    position: relative;
-    top: -110px;
-    margin-left: 10px;
-
-}
-.breadcrumb .avatar li{
- margin-left: 15px;
-}
-.breadcrumb .avatar li a {
-    color: #3b5998;
-    cursor: pointer;
-    text-decoration: none;
-    font-weight: bold;
-}
-
 .content-main {
     margin-top: 60px;
 }
@@ -89,6 +48,78 @@ body {
     word-wrap: break-word;
     /*border-radius: 4px;*/
     margin-bottom: 10px;
+}
+
+/*--------------------------------- Avatar - Cover------------------------------------------*/
+.breadcrumb {
+    position: relative;
+    padding: 5px 5px;
+}
+
+.breadcrumb .cover {
+    position: relative;
+    height: 396px;
+}
+
+.breadcrumb .cover img {
+    width: 1130px;
+    height: 350px;
+    position: relative;
+
+}
+
+.breadcrumb .cover .view-name {
+    position: relative;
+    height: 40px;
+    /*width: 100%;*/
+    top: -70px;
+    left: 190px;
+}
+
+.breadcrumb .cover .view-name .name, .breadcrumb .cover .view-name .orther-name {
+    color: whitesmoke;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.breadcrumb .cover .view-name .name a, .breadcrumb .cover .view-name .orther-name a {
+    color: whitesmoke;
+    font-size: 17px;
+}
+
+.breadcrumb .avatar {
+    position: absolute;
+    height: 40px;
+    width: 100%;
+    top: 356px;
+}
+
+.breadcrumb .avatar img {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    top: -110px;
+    margin-left: 10px;
+
+}
+
+.breadcrumb .avatar li {
+    margin-left: 15px;
+}
+
+.breadcrumb .avatar li a {
+    color: #3b5998;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.breadcrumb .nav-button {
+
+}
+
+.breadcrumb .nav-button ul li ul li {
+    margin-left: 0;
 }
 
 /*---------------------------------Write status------------------------------------------*/
@@ -230,7 +261,7 @@ body {
 .content-right-post-comment {
     float: left;
     width: 100%;
-    min-height: 50px;
+    /*min-height: 50px;*/
 }
 
 /*.post-comment {*/

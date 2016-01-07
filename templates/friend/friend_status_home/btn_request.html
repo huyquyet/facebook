@@ -1,0 +1,19 @@
+<li id="friend_status">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default">Request</button>
+        <button type="button" class="btn btn-default dropdown-toggle"
+                data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu pull-right">
+            <li>
+                <button type="button" class="btn btn-link"
+                        onclick="friend_cancel_request({{ user_home.pk }})">
+                    Cancel Request
+                </button>
+            </li>
+        </ul>
+    </div>
+</li>

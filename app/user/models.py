@@ -19,6 +19,7 @@ def _path_to_cover(instance, filename):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
+    orther_name = models.TextField(default='name')
     avatar = models.ImageField(upload_to=_path_to_avatar, max_length=255, default='avatar/default.jpg', blank=False)
     cover = models.ImageField(upload_to=_path_to_cover, max_length=255, default='cover/default.jpg', blank=False)
     address = models.TextField(default='')

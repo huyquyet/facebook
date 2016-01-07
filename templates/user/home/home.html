@@ -3,7 +3,9 @@
 {% load like_tags %}
 {% block content-right %}
     <div class="request-info pull-left " style="clear: both; width: 100%;">
-        {% include 'user/status/new_status.html' %}
+        {% if friend_status == 'friend'  or user == user_home %}
+            {% include 'user/status/new_status.html' %}
+        {% endif %}
         <div class="content-right-posts" ng-controller="LoadPostHomeController">
             <div id="view_posts">
                 {% for post in posts %}
@@ -18,7 +20,7 @@
                                     </div>
                                     <div class="post-name-date">
                                         <div class="post-user-full-name">
-                                            <a href="{% url 'user:home' user.username %}">
+                                            <a href="{% url 'user:home' post.profile_create.user.username %}">
                                                 {{ post.profile_create.user.first_name }} {{ post.profile_create.user.last_name }}
                                             </a>
                                         </div>
@@ -179,21 +181,25 @@
                                             </div>
                                         {% endfor %}
                                     </div>
-                                    <div class="create-comment">
-                                        <div class="create-comment-avatar">
-                                            <img src="{{ user.profile.avatar.url|default_if_none:'None' }}" alt="avatar"
-                                                 width="40" height="40" title="{{ user.username }}" class="img-rounded">
+                                    {% if friend_status == 'friend'  or user == user_home %}
+                                        <div class="create-comment">
+                                            <div class="create-comment-avatar">
+                                                <img src="{{ user.profile.avatar.url|default_if_none:'None' }}"
+                                                     alt="avatar"
+                                                     width="40" height="40" title="{{ user.username }}"
+                                                     class="img-rounded">
+                                            </div>
+                                            <div class="create-comment-content">
+                                                <form action="" method="post"
+                                                      onsubmit="create_post_comment({{ post.pk }}); return false;">
+                                                    {% csrf_token %}
+                                                    <input type="text" class="form-control"
+                                                           id="create_comment_post_{{ post.pk }}_content"
+                                                           placeholder="new comment">
+                                                </form>
+                                            </div>
                                         </div>
-                                        <div class="create-comment-content">
-                                            <form action="" method="post"
-                                                  onsubmit="create_post_comment({{ post.pk }}); return false;">
-                                                {% csrf_token %}
-                                                <input type="text" class="form-control"
-                                                       id="create_comment_post_{{ post.pk }}_content"
-                                                       placeholder="new comment">
-                                            </form>
-                                        </div>
-                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

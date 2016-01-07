@@ -53,9 +53,9 @@ function unlike_post(post_id) {
             post_id: post_id
         },
         success: function (json) {
-            $('#post-like-' + post_id).html('<button type="button" class="btn btn-link btn-xs text"' +
+            $('#post_like_' + post_id).html('<button type="button" class="btn btn-link btn-xs text"' +
                 'onclick="like_post(' + post_id + ')"> Like</button>');
-            $('#number-like-post-' + post_id).html('<a href="#"> ' + json.total_like_post + ' </a> like this');
+            $('#number_like_post_' + post_id).html('<a href="#"> ' + json.total_like_post + ' </a> like this');
         },
         error: function (json) {
             alert('Error submit data')
